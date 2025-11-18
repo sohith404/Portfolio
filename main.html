@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinalWRAP: AI & ML Automation Solutions</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
+    <style>
+        /* Define custom variables and utilities for professional, modern aesthetic */
+        :root {
+            --color-primary-dark: #25B7F5;
+            --color-primary-medium: #5279F0;
+            --color-primary-light: #613EEB;
+            --color-dark-blue: #111827; /* Darker than default gray for professionalism */
+            --shadow-soft: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-medium: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-large: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        /* Gradient for text, buttons, and decorative elements */
+        .text-gradient {
+            background-image: linear-gradient(266deg, var(--color-primary-dark), var(--color-primary-medium), var(--color-primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .button-gradient {
+            background-image: linear-gradient(266deg, var(--color-primary-dark), var(--color-primary-medium), var(--color-primary-light));
+            transition: all 0.3s ease;
+        }
+        .button-gradient:hover {
+            filter: brightness(1.1);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(82, 121, 240, 0.4);
+        }
+
+        /* Background gradient for light sections (like the one shown in the contact image) */
+        .bg-gradient-light {
+            background-image: linear-gradient(86deg, rgba(230, 237, 255, 0.7) 10%, rgba(220, 240, 255, 0.7) 80.91%);
+        }
+        
+        /* Enhanced Card Hover/Shadow Effect */
+        .card-shadow-lift {
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), box-shadow 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 0.75rem; /* rounded-xl */
+        }
+        .card-shadow-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 30px rgba(82, 121, 240, 0.2), 0 5px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* Custom Footer Mesh Pattern (subtle tech look) */
+        .footer-bg {
+            background-color: var(--color-dark-blue);
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        /* Technology logo styling */
+        .tech-logo {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+            transition: transform 0.3s ease, filter 0.3s ease;
+            border-radius: 8px;
+            background: white;
+            padding: 8px;
+            box-shadow: var(--shadow-soft);
+        }
+        .tech-logo:hover {
+            transform: translateY(-2px) scale(1.05);
+            filter: brightness(1.1);
+            box-shadow: var(--shadow-medium);
+        }
+
+        /* Enhanced animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        .animate-fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .animate-pulse-slow {
+            animation: pulse 2s infinite;
+        }
+
+        /* Improved loading states */
+        .loading-shimmer {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% {
+                background-position: -200% 0;
+            }
+            100% {
+                background-position: 200% 0;
+            }
+        }
+
+        /* Better focus states for accessibility */
+        .focus-visible {
+            outline: 2px solid var(--color-primary-medium);
+            outline-offset: 2px;
+        }
+
+        /* Smooth transitions for all interactive elements */
+        * {
+            transition: all 0.2s ease;
+        }
+
+        /* Mobile Menu Transitions */
+        .mobile-menu-overlay {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .mobile-menu {
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+</head>
+
+<body class="font-['Inter'] text-gray-800">
+
+    <!-- Sticky Navigation Header (image_4354e3.png) -->
+    <nav id="navbar" class="sticky top-0 z-50 bg-white shadow-lg transition-shadow duration-300">
+        <div class="flex h-16 lg:h-20 px-6 lg:px-12 xl:px-24 justify-between items-center">
+            
+            <!-- Logo/Brand Name -->
+            <a href="#" class="flex items-center text-2xl lg:text-3xl font-extrabold" data-scroll-to="top">
+                <span class="text-gradient">Final</span><span class="text-gray-900">WRAP</span>
+            </a>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center gap-x-8 text-base font-medium">
+                <a href="#about" class="text-gray-700 hover:text-blue-600 transition-colors">About Us</a>
+                <a href="#services" class="text-gray-700 hover:text-blue-600 transition-colors">Services</a>
+                <a href="#models" class="text-gray-700 hover:text-blue-600 transition-colors">Engagement Models</a>
+                <a href="#casestudies" class="text-gray-700 hover:text-blue-600 transition-colors">Case Studies</a>
+                
+                <!-- Contact Button -->
+                <a href="#contact" class="flex justify-center items-center h-10 px-6 py-2 rounded-full text-white font-medium button-gradient shadow-xl">
+                    Contact Us
+                </a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="lg:hidden p-2 rounded-md cursor-pointer" onclick="toggleMobileMenu()">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+    </nav>
+    
+    <!-- Mobile Menu (Hidden by default) -->
+    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden lg:hidden mobile-menu-overlay" onclick="toggleMobileMenu()"></div>
+    <div id="mobile-menu" class="fixed top-0 right-0 w-64 h-full bg-white z-50 transform translate-x-full lg:hidden mobile-menu shadow-2xl p-6">
+        <div class="flex flex-col gap-6 pt-4">
+            <button class="self-end" onclick="toggleMobileMenu()">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <a href="#about" class="text-gray-800 hover:text-blue-600 text-lg border-b pb-2" onclick="toggleMobileMenu()">About Us</a>
+            <a href="#services" class="text-gray-800 hover:text-blue-600 text-lg border-b pb-2" onclick="toggleMobileMenu()">Services</a>
+            <a href="#models" class="text-gray-800 hover:text-blue-600 text-lg border-b pb-2" onclick="toggleMobileMenu()">Engagement Models</a>
+            <a href="#casestudies" class="text-gray-800 hover:text-blue-600 text-lg border-b pb-2" onclick="toggleMobileMenu()">Case Studies</a>
+            <a href="#contact" class="flex justify-center items-center h-10 px-6 py-2 rounded-full text-white font-medium button-gradient shadow-lg mt-4" onclick="toggleMobileMenu()">Contact Us</a>
+        </div>
+    </div>
+
+
+    <!-- Hero Section -->
+    <section class="header-gradient-bg pt-20 pb-16 px-6 lg:px-12 xl:px-24 relative overflow-hidden">
+        <!-- Animated background elements -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute -top-40 -right-40 w-80 h-80 bg-blue-500/10 rounded-full blur-3xl animate-pulse-slow"></div>
+            <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl animate-pulse-slow" style="animation-delay: 1s;"></div>
+        </div>
+        
+        <div class="flex flex-col lg:flex-row items-center gap-12 relative z-10">
+            <div class="flex-1 flex flex-col items-start gap-8 animate-fade-in-up">
+                <div class="text-5xl lg:text-7xl font-extrabold leading-tight">
+                    <span class="text-gradient">AI First</span><span class="text-gray-900">
+                    <br/> Development <br/> For a Complete Finish
+                </span>
+                </div>
+                <p class="text-xl font-semibold text-gray-600 leading-relaxed">
+                    Empowering businesses with cutting-edge <strong>AI/ML, Gen AI, and Full Stack</strong> solutions for future-ready digital experiences.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#contact" class="flex justify-center items-center h-12 px-8 py-2 rounded-full text-white font-bold button-gradient shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                        Start Your Project Now
+                    </a>
+                    <a href="#services" class="flex justify-center items-center h-12 px-8 py-2 rounded-full border-2 border-gray-300 text-gray-700 font-semibold hover:border-blue-500 hover:text-blue-600 transition-all duration-300">
+                        Explore Services
+                    </a>
+                </div>
+            </div>
+            <div class="flex-1 relative animate-fade-in-up" style="animation-delay: 0.3s;">
+                <!-- Enhanced hero visual -->
+                <div class="h-80 lg:h-96 bg-gradient-to-br from-gray-900 to-blue-900 rounded-xl shadow-2xl p-6 flex items-center justify-center border-4 border-blue-500/50 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-[url('https://placehold.co/800x600/1a1a2e/0f3460?text=AI+Automation+Dashboard')] opacity-60 mix-blend-overlay rounded-xl"></div>
+                    <div class="relative z-10 text-center">
+                        <div class="w-16 h-16 mx-auto mb-4 bg-blue-500 rounded-full flex items-center justify-center animate-pulse-slow">
+                            <span class="text-2xl">🤖</span>
+                        </div>
+                        <p class="text-white text-lg font-mono">AI Automation Dashboard</p>
+                        <p class="text-blue-300 text-sm mt-2">Real-time Intelligence</p>
+                    </div>
+                    <!-- Floating elements -->
+                    <div class="absolute top-4 right-4 w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                    <div class="absolute bottom-4 left-4 w-2 h-2 bg-yellow-400 rounded-full animate-pulse" style="animation-delay: 0.5s;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services We Offer Section (image_42f6eb.png) -->
+    <section id="services" class="py-16 px-6 lg:px-12 xl:px-24 bg-gray-50">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl font-extrabold mb-4">Services We Offer</h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">Comprehensive AI and technology solutions tailored to your business needs</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- Card 1: AI Consulting -->
+            <div class="card-shadow-lift flex flex-col items-start gap-3 p-8 bg-white rounded-xl border border-gray-100 hover:border-blue-200 transition-all duration-300">
+                <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white text-2xl mb-2">
+                    🧠
+                </div>
+                <div class="text-xl font-bold mt-2 text-gray-900">AI Consulting & Strategy</div>
+                <p class="text-base text-gray-600 leading-relaxed">Ideate, architect, and implement custom AI strategies for your unique business goals.</p>
+                <div class="mt-4 flex items-center text-blue-600 font-semibold text-sm group">
+                    Learn More 
+                    <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Card 2: GenAI -->
+            <div class="card-shadow-lift flex flex-col items-start gap-3 p-8 bg-white rounded-xl border border-gray-100 hover:border-purple-200 transition-all duration-300">
+                <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-lg flex items-center justify-center text-white text-2xl mb-2">
+                    ✨
+                </div>
+                <div class="text-xl font-bold mt-2 text-gray-900">GenAI Product Development</div>
+                <p class="text-base text-gray-600 leading-relaxed">Design and deploy <strong>Generative AI</strong> products that delight users and drive competitive edge.</p>
+                <div class="mt-4 flex items-center text-purple-600 font-semibold text-sm group">
+                    Learn More 
+                    <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Card 3: Full Stack & Salesforce -->
+            <div class="card-shadow-lift flex flex-col items-start gap-3 p-8 bg-white rounded-xl border border-gray-100">
+                <span class="icon-color text-3xl font-extrabold">🛠</span>
+                <div class="text-xl font-bold mt-2">Full Stack & Salesforce Solutions</div>
+                <p class="text-base text-gray-600">Tailored *Full Stack* development, *Salesforce* integration, and custom CRM solutions.</p>
+            </div>
+
+            <!-- Card 4: MLOps -->
+            <div class="card-shadow-lift flex flex-col items-start gap-3 p-8 bg-white rounded-xl border border-gray-100 hover:border-orange-200 transition-all duration-300">
+                <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-lg flex items-center justify-center text-white text-2xl mb-2">
+                    🔁
+                </div>
+                <div class="text-xl font-bold mt-2 text-gray-900">MLOps & Automation</div>
+                <p class="text-base text-gray-600 leading-relaxed">Streamline ML pipelines and scale AI with robust <strong>MLOps</strong> and process automation practices.</p>
+                <div class="mt-4 flex items-center text-orange-600 font-semibold text-sm group">
+                    Learn More 
+                    <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- Card 5: AI Integration -->
+            <div class="card-shadow-lift flex flex-col items-start gap-3 p-8 bg-white rounded-xl border border-gray-100 hover:border-indigo-200 transition-all duration-300">
+                <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-lg flex items-center justify-center text-white text-2xl mb-2">
+                    🔗
+                </div>
+                <div class="text-xl font-bold mt-2 text-gray-900">AI Integration & APIs</div>
+                <p class="text-base text-gray-600 leading-relaxed">Seamlessly integrate AI/ML models into existing systems for enhanced efficiency and data flow.</p>
+                <div class="mt-4 flex items-center text-indigo-600 font-semibold text-sm group">
+                    Learn More 
+                    <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Card 6: Modernization -->
+            <div class="card-shadow-lift flex flex-col items-start gap-3 p-8 bg-white rounded-xl border border-gray-100 hover:border-cyan-200 transition-all duration-300">
+                <div class="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center text-white text-2xl mb-2">
+                    💻
+                </div>
+                <div class="text-xl font-bold mt-2 text-gray-900">Migration & Modernization</div>
+                <p class="text-base text-gray-600 leading-relaxed">AI-assisted legacy upgrades for scalable, future-ready tech systems and cloud readiness.</p>
+                <div class="mt-4 flex items-center text-cyan-600 font-semibold text-sm group">
+                    Learn More 
+                    <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Transformation Partner (image_42f72a.png) -->
+    <section class="py-16 px-6 lg:px-12 xl:px-24 bg-gradient-light">
+        <h2 class="text-4xl font-extrabold text-center mb-4">Your AI Transformation Partner</h2>
+        <p class="text-xl text-center text-gray-600 mb-16">
+            Intelligent automation, data-driven strategies, and next-gen experiences.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Feature Card 1 -->
+            <div class="p-8 rounded-xl bg-white shadow-lg border-t-4 border-blue-500/80 card-shadow-lift">
+                <span class="icon-color text-3xl font-extrabold">⚙</span>
+                <h3 class="text-xl font-bold mt-3 mb-2">AI-Powered Delivery Loops</h3>
+                <p class="text-gray-600">Emphasizes continuous integration of AI throughout the software lifecycle for rapid iteration.</p>
+            </div>
+            <!-- Feature Card 2 -->
+            <div class="p-8 rounded-xl bg-white shadow-lg border-t-4 border-indigo-500/80 card-shadow-lift">
+                <span class="icon-color text-3xl font-extrabold">⚡</span>
+                <h3 class="text-xl font-bold mt-3 mb-2">Human Logic, Machine Speed</h3>
+                <p class="text-gray-600">Blending expert engineering with AI agents for unparalleled speed and decision-making precision.</p>
+            </div>
+            <!-- Feature Card 3 -->
+            <div class="p-8 rounded-xl bg-white shadow-lg border-t-4 border-purple-500/80 card-shadow-lift">
+                <span class="icon-color text-3xl font-extrabold">✅</span>
+                <h3 class="text-xl font-bold mt-3 mb-2">Structured Workflows, Intelligent Outcomes</h3>
+                <p class="text-gray-600">Disciplined development practices assisted by AI automation guarantee predictable, high-value results.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Proven Track Record (image_42faad.jpg) - Includes JS Counters -->
+    <section id="about" class="py-20 px-6 lg:px-12 xl:px-24">
+        <div class="flex flex-col lg:flex-row items-center gap-12">
+            
+            <!-- Image Side -->
+            <div class="flex-1 relative">
+                 <div class="h-80 lg:h-96 bg-gray-200 rounded-xl shadow-2xl overflow-hidden">
+                    <img src="https://placehold.co/800x600/829AF0/ffffff?text=Team+of+Engineers" 
+                         alt="Team of engineers collaborating on an AI project" 
+                         class="w-full h-full object-cover">
+                 </div>
+            </div>
+
+            <!-- Stats Side -->
+            <div class="flex-1 flex flex-col items-start gap-8">
+                <h2 class="text-4xl font-extrabold text-gray-900">Our Proven Track Record</h2>
+                <p class="text-xl text-gray-600">Empowering business with cutting-edge AI solutions and future-ready digital experiences.</p>
+                
+                <div class="grid grid-cols-2 gap-8 w-full">
+                    
+                    <!-- Stat 1 -->
+                    <div class="flex items-start gap-4">
+                        <span class="text-4xl icon-color">👨‍💻</span>
+                        <div class="flex flex-col">
+                            <div class="text-4xl font-bold text-gradient"><span id="counter1" data-target="150">0</span>+</div>
+                            <div class="text-lg text-gray-700">AI Experts & Engineers</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Stat 2 -->
+                    <div class="flex items-start gap-4">
+                        <span class="text-4xl icon-color">🌍</span>
+                        <div class="flex flex-col">
+                            <div class="text-4xl font-bold text-gradient"><span id="counter2" data-target="8">0</span>+ Countries</div>
+                            <div class="text-lg text-gray-700">Global Delivery</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Stat 3 -->
+                    <div class="flex items-start gap-4">
+                        <span class="text-4xl icon-color">🚀</span>
+                        <div class="flex flex-col">
+                            <div class="text-4xl font-bold text-gradient"><span id="counter3" data-target="70">0</span>+ Projects</div>
+                            <div class="text-lg text-gray-700">Delivered</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Stat 4 -->
+                    <div class="flex items-start gap-4">
+                        <span class="text-4xl icon-color">💼</span>
+                        <div class="flex flex-col">
+                            <div class="text-4xl font-bold text-gradient"><span id="counter4" data-target="50">0</span>+ Clients</div>
+                            <div class="text-lg text-gray-700">Served</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Engagement Model (image_42fa31.png) -->
+    <section id="models" class="py-16 px-6 lg:px-12 xl:px-24 bg-gray-50">
+        <h2 class="text-4xl font-extrabold text-center mb-16">Engagement Model</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- Model 1: Outsourced Product Development -->
+            <div class="card-shadow-lift flex flex-col items-start gap-6 p-8 bg-white rounded-xl h-full border-b-4 border-blue-500">
+                <span class="icon-color text-3xl font-extrabold">📦</span>
+                <h3 class="text-xl font-bold leading-snug">Outsourced Product Development</h3>
+                <p class="text-base text-gray-600">End-to-end AI product development from ideation to deployment and maintenance.</p>
+                <ul class="list-none space-y-2 mt-auto">
+                    <li class="flex items-center text-gray-800"><span class="mr-2 text-blue-500">✔</span> Complete project ownership</li>
+                    <li class="flex items-center text-gray-800"><span class="mr-2 text-blue-500">✔</span> Dedicated cross-functional team</li>
+                    <li class="flex items-center text-gray-800"><span class="mr-2 text-blue-500">✔</span> Fixed or flexible pricing options</li>
+                </ul>
+            </div>
+
+            <!-- Model 2: Extended Engineering Team (Gradient Highlight) -->
+            <div class="card-shadow-lift flex flex-col items-start gap-6 p-8 rounded-xl h-full border-b-4 border-indigo-500 bg-gradient-light">
+                <span class="text-indigo-600 text-3xl font-extrabold">🤝</span>
+                <h3 class="text-xl font-bold leading-snug">Extended Engineering Team</h3>
+                <p class="text-base text-gray-600">Augment your team with our AI specialists working as an extension of your organization.</p>
+                <ul class="list-none space-y-2 mt-auto">
+                    <li class="flex items-center text-gray-800"><span class="mr-2 text-indigo-600">✔</span> Seamless collaboration</li>
+                    <li class="flex items-center text-gray-800"><span class="mr-2 text-indigo-600">✔</span> Shared project management</li>
+                    <li class="flex items-center text-gray-800"><span class="mr-2 text-indigo-600">✔</span> Transparent monthly billing</li>
+                </ul>
+            </div>
+
+            <!-- Model 3: Staff Augmentation -->
+            <div class="card-shadow-lift flex flex-col items-start gap-6 p-8 bg-white rounded-xl h-full border-b-4 border-purple-500">
+                <span class="icon-color text-3xl font-extrabold">👤</span>
+                <h3 class="text-xl font-bold leading-snug">Staff Augmentation</h3>
+                <p class="text-base text-gray-600">Individual AI specialists who integrate directly into your existing team structure.</p>
+                <ul class="list-none space-y-2 mt-auto">
+                    <li class="flex items-center text-gray-800"><span class="mr-2 text-purple-500">✔</span> Flexible resource scaling</li>
+                    <li class="flex items-center text-gray-800"><span class="mr-2 text-purple-500">✔</span> Your management and workflows</li>
+                    <li class="flex items-center text-gray-800"><span class="mr-2 text-purple-500">✔</span> Hourly or monthly billing</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tech Arsenal Section -->
+    <section id="tech-arsenal" class="py-16 px-6 lg:px-12 xl:px-24 bg-gradient-light">
+        <h2 class="text-4xl font-extrabold text-center mb-12">Our Tech Arsenal</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- Generative AI -->
+            <div class="p-8 bg-white rounded-xl card-shadow-lift">
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-2 text-indigo-600">✨ Generative AI</h3>
+                <div class="flex flex-wrap gap-4">
+                    <span class="p-3 border rounded-full shadow-md text-sm">OpenAI</span>
+                    <span class="p-3 border rounded-full shadow-md text-sm">Claude</span>
+                    <span class="p-3 border rounded-full shadow-md text-sm">LangChain</span>
+                    <span class="p-3 border rounded-full shadow-md text-sm">Hugging Face</span>
+                </div>
+            </div>
+
+            <!-- Development Tools -->
+            <div class="p-8 bg-white rounded-xl card-shadow-lift">
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-2 text-blue-600">DEV Development Tools</h3>
+                <div class="flex flex-wrap gap-4">
+                    <span class="p-3 border rounded-full shadow-md text-sm">VS Code</span>
+                    <span class="p-3 border rounded-full shadow-md text-sm">Salesforce DX</span>
+                    <span class="p-3 border rounded-full shadow-md text-sm">Jira/Confluence</span>
+                    <span class="p-3 border rounded-full shadow-md text-sm">GitHub Copilot</span>
+                </div>
+            </div>
+
+            <!-- Languages -->
+            <div class="p-8 bg-white rounded-xl card-shadow-lift">
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-2 text-purple-600">💾 Languages</h3>
+                <div class="flex flex-wrap gap-4">
+                    <span class="p-3 border rounded-full shadow-md text-sm">Python</span>
+                    <span class="p-3 border rounded-full shadow-md text-sm">JavaScript/TS</span>
+                    <span class="p-3 border rounded-full shadow-md text-sm">Java</span>
+                    <span class="p-3 border rounded-full shadow-md text-sm">Go</span>
+                    <span class="p-3 border rounded-full shadow-md text-sm">Apex (Salesforce)</span>
+                </div>
+            </div>
+
+            <!-- Cloud -->
+            <div class="p-8 bg-white rounded-xl card-shadow-lift">
+                <h3 class="text-xl font-bold mb-6 flex items-center gap-2 text-teal-600">☁ Cloud</h3>
+                <div class="flex flex-wrap gap-4">
+                    <span class="p-3 border rounded-full shadow-md text-sm">AWS</span>
+                    <span class="p-3 border rounded-full shadow-md text-sm">Azure</span>
+                    <span class="p-3 border rounded-full shadow-md text-sm">GCP</span>
+                    <span class="p-3 border rounded-full shadow-md text-sm">Heroku</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies Section -->
+    <section id="casestudies" class="py-16 px-6 lg:px-12 xl:px-24">
+        <h2 class="text-4xl font-extrabold text-center mb-4">Case Studies</h2>
+        <p class="text-xl text-center text-gray-600 mb-12">Our Portfolio of successful projects and discover how we help clients achieve their goals.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <!-- Case Study 1 -->
+            <div class="card-shadow-lift p-6 bg-white rounded-xl group overflow-hidden">
+                <div class="h-48 mb-4 bg-gray-900 rounded-lg flex items-center justify-center relative overflow-hidden">
+                    <img src="https://placehold.co/800x400/25B7F5/ffffff?text=AI+Modernization" 
+                         alt="AI Modernization" 
+                         class="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110">
+                </div>
+                <h3 class="text-xl font-bold mb-2">AI-Assisted Platform Modernization</h3>
+                <p class="text-base text-gray-600">Migrating a large financial platform to a scalable Python/Go architecture using AI agents for code transition and QA.</p>
+                <a href="#" class="text-blue-600 font-semibold mt-4 flex items-center gap-2 group-hover:gap-3 transition-all duration-300">Learn More <span class="group-hover:translate-x-1 transition-transform">→</span></a>
+            </div>
+
+            <!-- Case Study 2 -->
+            <div class="card-shadow-lift p-6 bg-white rounded-xl group overflow-hidden">
+                <div class="h-48 mb-4 bg-gray-900 rounded-lg flex items-center justify-center relative overflow-hidden">
+                    <img src="https://placehold.co/800x400/5279F0/ffffff?text=Salesforce+AI" 
+                         alt="Salesforce AI" 
+                         class="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110">
+                </div>
+                <h3 class="text-xl font-bold mb-2">Gen AI-Powered Salesforce Assistant</h3>
+                <p class="text-base text-gray-600">Building a custom Gen AI layer on Salesforce to automatically summarize client notes and draft personalized follow-up emails.</p>
+                <a href="#" class="text-blue-600 font-semibold mt-4 flex items-center gap-2 group-hover:gap-3 transition-all duration-300">Learn More <span class="group-hover:translate-x-1 transition-transform">→</span></a>
+            </div>
+
+            <!-- Case Study 3 -->
+            <div class="card-shadow-lift p-6 bg-white rounded-xl group overflow-hidden">
+                <div class="h-48 mb-4 bg-gray-900 rounded-lg flex items-center justify-center relative overflow-hidden">
+                     <img src="https://placehold.co/800x400/613EEB/ffffff?text=Integration+Automation" 
+                         alt="Integration Automation" 
+                         class="w-full h-full object-cover transition-transform duration-500 ease-in-out group-hover:scale-110">
+                </div>
+                <h3 class="text-xl font-bold mb-2">Product Integration Automation</h3>
+                <p class="text-base text-gray-600">A Full Stack service to automate data exchange between an e-commerce platform and multiple inventory/fulfillment APIs.</p>
+                <a href="#" class="text-blue-600 font-semibold mt-4 flex items-center gap-2 group-hover:gap-3 transition-all duration-300">Learn More <span class="group-hover:translate-x-1 transition-transform">→</span></a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Contact Us Section (image_42fae8.png) -->
+    <section id="contact" class="py-20 px-6 lg:px-12 xl:px-24">
+        <h2 class="text-4xl font-extrabold text-center mb-12">Contact Us</h2>
+        <div class="bg-gradient-light p-8 lg:p-12 rounded-2xl grid grid-cols-1 lg:grid-cols-3 gap-12 shadow-xl">
+            
+            <!-- Contact Info -->
+            <div class="flex flex-col gap-8">
+                <div class="text-3xl lg:text-4xl font-bold text-gray-900">Get in Touch</div>
+                <p class="text-xl leading-relaxed text-gray-700">
+                    Reach out to us <br> if you want to talk <br> *AI Automation!*
+                </p>
+                <div class="flex flex-col gap-4 text-gray-700">
+                    <a href="mailto:sales@finalwrap.com" class="flex gap-3.5 items-center hover:text-blue-600 transition">
+                        <span class="icon-color text-2xl">📧</span> <span>finalwrap7@gmail.com</span>
+                    </a>
+                    <a href="tel:+15551234567" class="flex gap-3.5 items-center hover:text-blue-600 transition">
+                        <span class="icon-color text-2xl">📞</span> <span>+91 7995994937</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <form id="contact-form" class="lg:col-span-2 flex flex-col gap-6" onsubmit="handleContactSubmit(event)">
+                <div class="flex flex-col lg:flex-row gap-6">
+                    <div class="flex-1">
+                        <input type="text" id="name" name="name" placeholder="Full name" required 
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 hover:border-gray-400">
+                        <div id="name-error" class="text-red-500 text-sm mt-1 hidden"></div>
+                    </div>
+                    <div class="flex-1">
+                        <input type="email" id="email" name="email" placeholder="Email" required 
+                               class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 hover:border-gray-400">
+                        <div id="email-error" class="text-red-500 text-sm mt-1 hidden"></div>
+                    </div>
+                </div>
+                
+                <div>
+                    <select id="project-area" name="project-area" class="w-full p-3 border border-gray-300 rounded-lg text-gray-700 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 hover:border-gray-400">
+                        <option value="" disabled selected hidden>Interested Area</option>
+                        <option value="AI Automation Project">AI Automation Project</option>
+                        <option value="Salesforce Integration">Salesforce Integration</option>
+                        <option value="Extended Engineering Team">Extended Engineering Team</option>
+                        <option value="GenAI Product Development">GenAI Product Development</option>
+                        <option value="MLOps & Automation">MLOps & Automation</option>
+                        <option value="General Inquiry">General Inquiry</option>
+                    </select>
+                    <div id="project-error" class="text-red-500 text-sm mt-1 hidden"></div>
+                </div>
+                
+                <div>
+                    <textarea id="message" name="message" placeholder="Write your thoughts here..." rows="4" required 
+                              class="w-full p-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-300 hover:border-gray-400"></textarea>
+                    <div id="message-error" class="text-red-500 text-sm mt-1 hidden"></div>
+                </div>
+                
+                <!-- Form Status Messages -->
+                <div id="form-message" class="text-center font-semibold mt-2 hidden p-3 rounded-lg transition-all duration-300"></div>
+                
+                <!-- Loading Spinner -->
+                <div id="loading-spinner" class="hidden text-center">
+                    <div class="inline-flex items-center px-4 py-2 text-blue-600">
+                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Sending your message...
+                    </div>
+                </div>
+
+                <button type="submit" id="submit-btn" class="p-3 rounded-full text-white font-bold button-gradient shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
+                    <span id="submit-text">Submit Inquiry</span>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer Section (image_4357ec.jpg) -->
+    <footer class="footer-bg text-gray-300 pt-16 pb-6 px-6 lg:px-12 xl:px-24 relative overflow-hidden">
+        
+        <!-- Top Section: Logo, Offices, Links -->
+        <div class="flex flex-col lg:grid lg:grid-cols-5 lg:gap-16 gap-10">
+            
+            <!-- Logo & Title -->
+            <div class="lg:col-span-2">
+                <div class="text-3xl font-extrabold text-white mb-1">FinalWRAP</div>
+                <div class="text-base text-gray-400">AI & ML Automation Solutions.</div>
+            </div>
+
+            <!-- Offices -->
+            <div class="grid grid-cols-2 gap-8 lg:col-span-1 text-sm text-gray-400">
+                <div>
+                    <span class="font-bold text-white block mb-1">India Office</span>
+                    <div>Office 101, 1st Floor,</div>
+                    <div>Innovation Tech Park,</div>
+                    <div>Ongole – 523001</div>
+                </div>
+                <div>
+                    <span class="font-bold text-white block mb-1">USA Office</span>
+                    <div>123 Automation Way,</div>
+                    <div>Dover,</div>
+                    <div>Delaware 19901, US</div>
+                </div>
+            </div>
+
+            <!-- Links -->
+            <div class="grid grid-cols-2 gap-y-3 lg:col-span-2 text-sm lg:text-base text-gray-400">
+                <a href="#about" class="hover:text-white transition-colors">About Us</a>
+                <a href="#services" class="hover:text-white transition-colors">Services</a>
+                <a href="#models" class="hover:text-white transition-colors">Engagement Models</a>
+                <a href="#careers" class="hover:text-white transition-colors">Careers</a>
+                <a href="#casestudies" class="hover:text-white transition-colors">Case Studies</a>
+                <a href="#contact" class="hover:text-white transition-colors">Contact Us</a>
+            </div>
+        </div>
+        
+        <!-- Separator Line -->
+        <div class="w-full h-0.5 mt-10 mb-4 button-gradient"></div>
+
+        <!-- Bottom Section: Legal & Social -->
+        <div class="flex flex-col lg:flex-row lg:justify-between items-center text-center lg:text-left text-xs gap-4">
+            <div class="text-gray-500">
+                Copyright © 2025 | All Rights Reserved FinalWRAP.
+                <a href="#" class="ml-2 hover:text-white transition-colors">Privacy Policy</a> | 
+                <a href="#" class="hover:text-white transition-colors">Terms and Conditions</a>
+            </div>
+            
+            <!-- Social Icons -->
+            <div class="flex items-center gap-4 text-white">
+                <a href="#" class="hover:text-blue-500 transition-colors">
+                    <svg fill="currentColor" viewBox="0 0 24 24" class="w-5 h-5"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.568-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                </a>
+                <a href="#" class="hover:text-blue-500 transition-colors">
+                    <svg fill="currentColor" viewBox="0 0 24 24" class="w-5 h-5"><path d="M24 12c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385h-2.926v-3.47h2.926v-2.083c0-2.91 1.763-4.522 4.384-4.522 1.246 0 2.316.093 2.628.134v3.036h-1.801c-1.411 0-1.683.673-1.683 1.656v2.199h3.337l-.434 3.47h-2.903v8.385c5.736-.9 10.124-5.864 10.124-11.854z"/></svg>
+                </a>
+                <a href="#" class="hover:text-blue-500 transition-colors">
+                    <svg fill="currentColor" viewBox="0 0 24 24" class="w-5 h-5"><path d="M12 2.163c3.204 0 3.584.012 4.85.071 1.17.062 1.944.276 2.516.536.634.298 1.036.66 1.413 1.036.377.377.638.78.936 1.413.256.572.469 1.346.536 2.516.058 1.265.07 1.645.07 4.849 0 3.204-.012 3.584-.071 4.85-.062 1.17-.276 1.944-.536 2.516-.298.634-.66 1.036-1.036 1.413-.377.377-.78.638-1.413.936-.572.256-1.346.469-2.516.536-1.265.058-1.645.07-4.849.07s-3.584-.012-4.85-.071c-1.17-.062-1.944-.276-2.516-.536-.634-.298-1.036-.66-1.413-1.036-.377-.377-.638-.78-.936-1.413-.256-.572-.469-1.346-.536-2.516-.058-1.265-.07-1.645-.07-4.849s.012-3.584.071-4.85c.062-1.17.276-1.944.536-2.516.298-.634.66-1.036 1.036-1.413.377-.377.78-.638 1.413-.936.572-.256 1.346-.469 2.516-.536 1.265-.058 1.645-.07 4.849-.07zm0-2.163c-3.268 0-3.696.014-4.981.074-1.278.067-2.152.325-2.903.619s-1.371.72-1.879 1.229c-.508.508-.952 1.101-1.229 1.879-.294.75-.552 1.624-.619 2.903-.06 1.285-.074 1.713-.074 4.981s.014 3.696.074 4.981c.067 1.278.325 2.152.619 2.903s.72 1.371 1.229 1.879c.508.508 1.101.952 1.879 1.229.75.294 1.624.552 2.903.619 1.285.06 1.713.074 4.981.074s3.696-.014 4.981-.074c1.278-.067 2.152-.325 2.903-.619s1.371-.72 1.879-1.229c.508-.508.952-1.101 1.229-1.879.294-.75.552-1.624.619-2.903.06-1.285.074-1.713.074-4.981s-.014-3.696-.074-4.981c-.067-1.278-.325-2.152-.619-2.903s-.72-1.371-1.229-1.879c-.508-.508-1.101-.952-1.879-1.229-.75-.294-1.624-.552-2.903-.619-1.285-.06-1.713-.074-4.981-.074zm0 6.815c-3.415 0-6.185 2.77-6.185 6.185s2.77 6.185 6.185 6.185 6.185-2.77 6.185-6.185-2.77-6.185-6.185-6.185zm0 10.185c-2.209 0-4-1.791-4-4s1.791-4 4-4 4 1.791 4 4-1.791 4-4 4zm6.44-11.884c0-.623-.504-1.127-1.127-1.127s-1.127.504-1.127 1.127.504 1.127 1.127 1.127 1.127-.504 1.127-1.127z"/></svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+      // Initialize EmailJS with your PUBLIC key
+(function () {
+    emailjs.init("hNKuFhP_1R8046QrT");
+})();
+
+// Smooth scrolling for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+
+        if (targetElement) {
+            const offset = document.getElementById('navbar').offsetHeight;
+            window.scrollTo({
+                top: targetElement.offsetTop - offset,
+                behavior: 'smooth'
+            });
+
+            if (document.body.classList.contains('mobile-menu-open')) {
+                toggleMobileMenu();
+            }
+        }
+    });
+});
+
+// Mobile Menu Toggle
+function toggleMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const overlay = document.getElementById('mobile-menu-overlay');
+    const isOpen = menu.classList.toggle('translate-x-full');
+    overlay.classList.toggle('hidden', isOpen);
+    document.body.classList.toggle('overflow-hidden', !isOpen);
+
+    if (menu.classList.contains('translate-x-full')) {
+        menu.classList.remove('translate-x-0');
+    } else {
+        menu.classList.add('translate-x-0');
+    }
+}
+
+// Validation Functions
+function validateEmail(email) {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+}
+
+function validateName(name) {
+    return name.trim().length >= 2;
+}
+
+function validateMessage(message) {
+    return message.trim().length >= 10;
+}
+
+function showError(fieldId, message) {
+    const errorElement = document.getElementById(fieldId + '-error');
+    const inputElement = document.getElementById(fieldId);
+
+    if (errorElement) {
+        errorElement.textContent = message;
+        errorElement.classList.remove('hidden');
+    }
+
+    if (inputElement) {
+        inputElement.classList.add('border-red-500');
+        inputElement.classList.remove('border-gray-300');
+    }
+}
+
+function clearError(fieldId) {
+    const errorElement = document.getElementById(fieldId + '-error');
+    const inputElement = document.getElementById(fieldId);
+
+    if (errorElement) errorElement.classList.add('hidden');
+    if (inputElement) {
+        inputElement.classList.remove('border-red-500');
+        inputElement.classList.add('border-gray-300');
+    }
+}
+
+function clearAllErrors() {
+    ['name', 'email', 'project-area', 'message'].forEach(clearError);
+}
+
+// Form Message Display
+function showFormMessage(message, type = 'success') {
+    const messageDiv = document.getElementById('form-message');
+    messageDiv.textContent = message;
+    messageDiv.classList.remove('hidden');
+
+    if (type === 'success') {
+        messageDiv.classList.remove('bg-red-100', 'text-red-700', 'border-red-300');
+        messageDiv.classList.add('bg-green-100', 'text-green-700', 'border-green-300');
+    } else {
+        messageDiv.classList.remove('bg-green-100', 'text-green-700', 'border-green-300');
+        messageDiv.classList.add('bg-red-100', 'text-red-700', 'border-red-300');
+    }
+}
+
+// Button Loading State
+function setFormLoading(loading) {
+    const submitBtn = document.getElementById('submit-btn');
+    const submitText = document.getElementById('submit-text');
+    const loadingSpinner = document.getElementById('loading-spinner');
+
+    if (loading) {
+        submitBtn.disabled = true;
+        submitText.textContent = 'Sending...';
+        loadingSpinner.classList.remove('hidden');
+    } else {
+        submitBtn.disabled = false;
+        submitText.textContent = 'Submit Inquiry';
+        loadingSpinner.classList.add('hidden');
+    }
+}
+
+// ⭐⭐⭐ FINAL CONTACT FORM HANDLER FIXED ⭐⭐⭐
+async function handleContactSubmit(event) {
+    event.preventDefault();
+    clearAllErrors();
+
+    const form = event.target;
+    const formData = new FormData(form);
+
+    // Input values
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const projectArea = formData.get('project-area');
+    const message = formData.get('message');
+
+    // Validation
+    let error = false;
+
+    if (!validateName(name)) {
+        showError('name', 'Please enter a valid name (min 2 characters)');
+        error = true;
+    }
+    if (!validateEmail(email)) {
+        showError('email', 'Please enter a valid email');
+        error = true;
+    }
+    if (!projectArea) {
+        showError('project-area', 'Please select an area');
+        error = true;
+    }
+    if (!validateMessage(message)) {
+        showError('message', 'Message must be at least 10 characters');
+        error = true;
+    }
+
+    if (error) return;
+
+    setFormLoading(true);
+
+    try {
+        // ⭐ Correct template variables — matches your EmailJS template ⭐
+        const templateParams = {
+            name: name,
+            email: email,
+            project_area: projectArea,
+            message: message,
+            title: "New Client Inquiry"
+        };
+
+        // Send email
+        const response = await emailjs.send(
+            'service_sb9w1oh',
+            'template_qizxroh',
+            templateParams
+        );
+
+        if (response.status === 200) {
+            showFormMessage('Thank you! We will contact you within 24 hours.', 'success');
+            form.reset();
+
+            setTimeout(() => {
+                document.getElementById('form-message').classList.add('hidden');
+            }, 8000);
+        } else {
+            throw new Error('EmailJS responded with non-200 status');
+        }
+
+    } catch (error) {
+        console.error('Email send error:', error);
+        showFormMessage('Error sending message. Email us at finalwrap7@gmail.com.', 'error');
+    } finally {
+        setFormLoading(false);
+    }
+}
+
+// Real-time Validation
+document.addEventListener('DOMContentLoaded', () => {
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const messageInput = document.getElementById('message');
+
+    if (nameInput) {
+        nameInput.addEventListener('blur', () => {
+            if (nameInput.value.trim() && !validateName(nameInput.value)) {
+                showError('name', 'Please enter a valid name');
+            } else clearError('name');
+        });
+    }
+
+    if (emailInput) {
+        emailInput.addEventListener('blur', () => {
+            if (emailInput.value.trim() && !validateEmail(emailInput.value)) {
+                showError('email', 'Invalid email');
+            } else clearError('email');
+        });
+    }
+
+    if (messageInput) {
+        messageInput.addEventListener('blur', () => {
+            if (messageInput.value.trim() && !validateMessage(messageInput.value)) {
+                showError('message', 'Message must be at least 10 characters');
+            } else clearError('message');
+        });
+    }
+});
+
+// Counter Animation (unchanged)
+function animateCounters() {
+    const counters = document.querySelectorAll('[id^="counter"]');
+    const speed = 20;
+
+    counters.forEach(counter => {
+        const update = () => {
+            const target = +counter.getAttribute('data-target');
+            const count = +counter.innerText;
+            const inc = target / 200;
+
+            if (count < target) {
+                counter.innerText = Math.ceil(count + inc);
+                setTimeout(update, speed);
+            } else counter.innerText = target;
+        };
+        update();
+    });
+}
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            animateCounters();
+            observer.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.5 });
+
+const trackSection = document.getElementById('about');
+if (trackSection) observer.observe(trackSection);
+
+
+    </script>
+</body>
+</html>
